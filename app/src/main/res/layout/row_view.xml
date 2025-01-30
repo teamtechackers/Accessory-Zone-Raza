@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/item"
+        android:layout_width="190dp"
+        android:layout_height="214dp"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_radio_bt">
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="28dp"
+            android:layout_height="50dp"
+            android:src="@drawable/delete_ic"
+            android:layout_gravity="end"
+            android:layout_marginRight="10dp"
+           />
+        <ImageView
+            android:id="@+id/ProductImage"
+            android:layout_width="80dp"
+            android:layout_height="85dp"
+            android:scaleType="fitXY"
+           android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_launcher_background"/>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:background="@drawable/bg_radio_bt"
+            android:layout_margin="10dp">
+            <TextView
+                android:id="@+id/productName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:text="Oppo S7 pro"
+                android:layout_gravity="center_horizontal"
+                />
+            <TextView
+                android:id="@+id/Price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="1200"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
