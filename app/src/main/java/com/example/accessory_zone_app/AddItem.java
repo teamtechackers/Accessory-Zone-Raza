@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ public class AddItem extends AppCompatActivity {
     EditText edtProduct,edtPrice,edtDescription;
     AppCompatButton save;
     Uri uri;
+    DBHelper DB = new DBHelper(this);
     public static final String a = String.valueOf(1);
 
     @Override
@@ -54,6 +56,16 @@ public class AddItem extends AppCompatActivity {
                 String ProductName = edtProduct.getText().toString();
                 String Price = edtPrice.getText().toString();
                 String Description = edtDescription.getText().toString();
+
+
+                Boolean checkinsertdata = DB.insertuserdata(ProductName,Price,Description);
+                if (checkinsertdata == true){
+                    Toast.makeText(AddItem.this, "new Entery inserted", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(AddItem.this, "not inserted", Toast.LENGTH_SHORT).show();
+                }
+
 
                 Intent intent = new Intent(AddItem.this, MainActivity.class);
 

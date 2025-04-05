@@ -8,17 +8,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     Context context;
-    ArrayList<rowModel> arrayList;
+    List<rowModel> arrayList;
+    DBHelper DB ;
 
-    public MyAdapter(Context context, ArrayList<rowModel> arrayList) {
+    public MyAdapter(Context context, List<rowModel> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -33,14 +36,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final rowModel dataPosition = arrayList.get(position);
-        holder.ProductName.setText(arrayList.get(position).productName);
-        holder.Price.setText(arrayList.get(position).Price);
-        holder.ProductImage.setImageURI(arrayList.get(position).uri);
+        holder.ProductName.setText(dataPosition.getProductName());
+        holder.Price.setText(dataPosition.getPrice());
+        holder.ProductImage.setImageURI(dataPosition.getUri());
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arrayList.remove(position);
-                notifyItemRemoved(position);
+//                arrayList.remove(position);
+//                notifyItemRemoved(position);
+                //DB = new DBHelper(this);
+
+                Boolean deletedata = DB.deletedata(dataPosition.productName);
+                if (deletedata == true){
+                    Toast.makeText(context, "Entery deleted", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(context, "not deleted", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         holder.item.setOnClickListener(new View.OnClickListener() {

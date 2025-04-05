@@ -7,18 +7,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ImageView btnAdd;
     RecyclerView gridRecycler;
     MyAdapter adapter;
-    static ArrayList<rowModel> arrayList = new ArrayList<>();
+    DBHelper DB;
+    String ProductName,Price,Decprition;
+    static List<rowModel> arrayList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         gridRecycler.setLayoutManager(new GridLayoutManager(MainActivity.this,2 ));
         adapter = new MyAdapter(this,arrayList);
         gridRecycler.setAdapter(adapter);
+        DBHelper DB = new DBHelper(this);
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,15 +42,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        String a = getIntent().getStringExtra("a");
-        if (a!=null){
-        String ProductName = getIntent().getStringExtra("pName");
-        String Price = getIntent().getStringExtra("Price");
-        String Description = getIntent().getStringExtra("Description");
-        Uri uri = getIntent().getParcelableExtra("img");
-        rowModel newitem= new rowModel(ProductName,Price,Description,uri);
-        arrayList.add(newitem);
-        adapter.notifyItemInserted(arrayList.size()-1);
+        displaydata();
+    }
+
+    private void displaydata() {
+        Cursor res = DB.getdata();
+        if (res.getCount()==0){
+            Toast.makeText(MainActivity.this,"No Entery Exists", Toast.LENGTH_SHORT).show();
+            while (res.moveToNext()){
+                arrayList.add(new rowModel(res.getString(1),res.getString(2),res.getString(3)));
+            }
+            Toast.makeText(this, ""+arrayList.size(), Toast.LENGTH_SHORT).show();
         }
     }
 }
